@@ -33,3 +33,6 @@ nbproject
 .idea
 
 config/settings_data.json
+
+# Grunt stuff
+node_modules
