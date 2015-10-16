@@ -1,0 +1,35 @@
+.sass-cache
+.codekit-cache
+.scssc
+*.scssc
+a/sass/.sass-cache
+
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+*.sassc
+*.scssc
+
+# OS or Editor folders
+.DS_Store
+Thumbs.db
+.cache
+.project
+.settings
+.buildpath
+.tmproj
+*.esproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+.idea
+
+config/settings_data.json
