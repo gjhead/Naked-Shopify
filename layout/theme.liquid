@@ -61,14 +61,6 @@
 	<h1>{{ shop.name }}</h1>
 	<a href="/"><img src="{{ 'logo.jpg' | asset_url }}" alt="{{ shop.name }}" class="logo" /></a>
 	
-	<nav class="mainNav">    
-		<ul>
-			{% for link in linklists.main-nav.links %}
-			<li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
-			{% endfor %}
-		</ul>  
-	</nav>    
-    
   	{% if shop.customer_accounts_enabled %}
   	<div class="login">
     	{% if customer  %}
@@ -91,6 +83,29 @@
 	<div class="cartview">
     	<a href="/cart">Shopping Bag <span>{{ cart.item_count }}</span></a>        
     </div>
+    
+    <nav class="mainnav">
+    
+      <ul>
+        {% for link in linklists.main-menu-1.links %}
+			{% if linklists[link.handle] == empty %}
+			<li>
+				<a href="{{ link.url }}" class="{% if link.active %} current{% endif %}">{{ link.title }}</a>
+        	</li>
+			{% else %}
+			<li class="sub">
+				<span>{{ link.title }}</span>
+				<ul class="dropdown">
+				{% for l in linklists[link.handle].links %}
+					<li><a href="{{ l.url }}"{% if l.active %} class="current"{% endif %}>{{ l.title }}</a></li>
+				{% endfor %}
+          		</ul>
+        	</li>
+			{% endif %}
+        {% endfor %}
+      </ul>
+      
+    </nav>
     	
 </header>
 
