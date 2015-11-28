@@ -61,13 +61,36 @@
 	<h1>{{ shop.name }}</h1>
 	
 	<nav class="mainNav">    
-      <ul>
-        {% for link in linklists.main-nav.links %}
-          <li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
-        {% endfor %}
-      </ul>  
-    </nav>
+		<ul>
+			{% for link in linklists.main-nav.links %}
+			<li><a href="{{ link.url }}" title="{{ link.title }}">{{ link.title }}</a></li>
+			{% endfor %}
+		</ul>  
+	</nav>    
+    
+  	{% if shop.customer_accounts_enabled %}
+  	<div class="login">
+    	{% if customer  %}
+        	<a href="/account">Your Account</a>
+		{% else %}
+        	{{ 'Log in' | customer_login_link }}
+			{% if shop.customer_accounts_optional %}
+			{% endif %}
+		{% endif %}
+  	</div>
+	{% endif %}
 	
+	<div class="searchbox">
+		<form action="/search">          
+			<label for="search_term" class="searchlabel">Search</label>
+			<input type="text" name="q" id="search_term" class="search_box" placeholder="Search" value="{{ search.terms }}" />            	       
+		</form>      
+	</div>
+	
+	<div class="cartview">
+    	<a href="/cart">Shopping Bag <span>{{ cart.item_count }}</span></a>        
+    </div>
+    	
 </header>
 
 <main>
