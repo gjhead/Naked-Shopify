@@ -99,10 +99,6 @@ i, em {
 .center {
   text-align: center; }
 
-/* clears */
-.clear {
-  clear: both; }
-
 /* Contain floats: h5bp.com/q */
 .group:before, .group:after {
   content: "";
