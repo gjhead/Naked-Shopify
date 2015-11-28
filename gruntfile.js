@@ -11,11 +11,25 @@ module.exports = function(grunt) {
           style: 'nested' // compact, compressed, nested or expanded
         },
         files: {
-          'assets/screen.css' : 'a/sass/screen.scss'
+          'a/pre-css/screen-pre.css' : 'a/sass/screen.scss'
         }
       }                  
     },
     
+    // Run Autoprefixer on our css after sass compile, then move it to css dir.
+    postcss: {
+      options: {
+        map: true,
+        processors: [
+          require('autoprefixer')({browsers: 'last 2 versions'})        
+        ]
+      },
+      
+      dist: {
+        src: 'a/pre-css/screen-pre.css',
+        dest: 'assets/style.css'
+      }
+    },    
     
     // Make sure any custon js is not stupid, then concatonate stuffs
     jshint: {
@@ -40,6 +54,11 @@ module.exports = function(grunt) {
 	        files: ['a/sass/**/*.scss'],
 	        tasks: ['sass']
 	    },
+	    
+	    postcss: {
+	        files: ['a/pre-css/screen-pre.css'],
+	        tasks: ['postcss']
+	    },
 	      
 	    jstest: {
 	        files: ['a/js/script.js'],
@@ -55,10 +74,11 @@ module.exports = function(grunt) {
   });
  
   grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-uglify');  
   grunt.loadNpmTasks('grunt-contrib-watch');
   
-  grunt.registerTask('default', ['sass', 'jshint', 'uglify', 'watch']);
+  grunt.registerTask('default', ['sass', 'postcss', 'jshint', 'uglify', 'watch']);
   
 };
